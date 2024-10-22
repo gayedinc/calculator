@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/calculator.css">
+  <script src="assets/js/calculator.js" defer></script>
+  <title>Tip Calculater App</title>
+</head>
+<body>
+  <!-- Container Start -->
+  <div class="container">
+    <!-- Headline Start -->
+    <div class="head-line">
+      <img src="assets/img/splitter.svg" alt="splitter image">
+    </div>
+    <!-- Headline End -->
+    <!-- Context Start -->
+    <div class="context">
+      <!-- Card Start -->
+      <div class="card">
+        <div class="bill">
+          <h3>Bill</h3>
+          <input type="number" name="" id="billInput" value="" placeholder="0">
+        </div>
+        <div class="select-tip">
+          <h3>Select Tip %</h3>
+          <input type="number" name="" id="tipInput" value="" placeholder="Yüzde giriniz.">
+        </div>
+        <div class="number-people">
+          <div class="number-people-title">
+            <h3>Number of People</h3>
+          <div id="warnTxt" class="warn-text"></div>
+          </div>
+          <input type="number" name="" id="peopleInput" value="" placeholder="0">
+        </div>
+      </div>
+      <!-- Card End -->
+      <!-- Result Card Start -->
+      <div class="result-card">
+        <div class="result-card-text">
+          <div class="tip-amount">
+            <div class="amount-text">
+              <h3>Tip Amount</h3>
+              <span>/ person</span>
+            </div>
+            <div class="amount-price">
+              <span id="amountPriceTxt">$0.00</span>
+            </div>
+          </div>
+          <div class="total">
+            <div class="total-text">
+              <h3>Total</h3>
+              <span>/ person</span>
+            </div>
+            <div class="total-price">
+              <span id="totalPriceTxt">$0.00</span>
+            </div>
+          </div>
+        </div>
+        <!-- Buttons Start -->
+        <button class="calc-button" id="calcBtn">
+          <span id="calcText">HESAPLA</span>
+        </button>
+        <button class="reset-button" id="resetBtn">
+          <span id="resetText">RESETLE</span>
+        </button>
+        <!-- Buttons End -->
+      </div>
+      <!-- Result Card End -->
+    </div>
+    <!-- Context End -->
+  </div>
+  <!-- Container End -->
+</body>
+</html>
