@@ -1,60 +1,91 @@
-billInput.addEventListener("change", handleBill);
-tipInput.addEventListener("change", handleSelect);
-peopleInput.addEventListener("change", handlePeople);
+// Tüm inputların seçilmesi
+const billInput = document.getElementById("billInput");
+const tipInput = document.getElementById("tipInput");
+const peopleInput = document.getElementById("peopleInput");
+const inputs = [billInput, tipInput, peopleInput];
+
+// Tüm error mesajlarının seçilmesi
+const errorMsgs = document.querySelectorAll(".error-msg");
+
+// Tüm buttonların seçilmesi
+const calcBtn = document.getElementById("calcBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+// Atanan event listenerlar
 calcBtn.addEventListener("click", handleCalc);
 resetBtn.addEventListener("click", handleReset);
 
-function handleBill() {
-  if (billInput.value.trim() !== '') {
-    billInput.innerHTML += billInput.value;
-  } else {
-    billInput.innerHTML = "Boş değer girilmez";
+// Tüm inputların üzerinde dönüyoruz ve inputa değer girildiği anda fonksiyon çalışıyor
+inputs.forEach(input => {
+  input.addEventListener("input", validateInput);
+});
+
+// Validasyon fonksiyonu
+function validateInput(event) {
+  const input = event.target;
+  const errorMsg = input.nextElementSibling; // span elementi
+  const value = input.value.trim();
+
+  if (value === "") { // Eğer input değeri boşsa
+    input.classList.add("user-invalid"); // hata stilleri yüklenir
+    input.classList.remove("user-valid"); // geçerli stilleri kaldırılır
+    errorMsg.innerHTML = "Can't be blank"; // Boş ise mesajı göster
+    errorMsg.style.display = "inline"; // Error mesajını göster
+
+  } else if (value === "0") { // Eğer input değeri 0 ise
+    input.classList.add("user-invalid"); // hata stilleri yüklenir
+    input.classList.remove("user-valid");  // geçerli stilleri kaldırılır
+    errorMsg.innerHTML = "Can't be zero"; // 0 ise mesajı göster
+    errorMsg.style.display = "inline"; // Error mesajını göster
+
+  } else { // Eğer değer girildiyse
+    input.classList.remove("user-invalid");
+    input.classList.add("user-valid");
+    errorMsg.style.display = "none"; // Error mesajını gizlemek
   }
 }
 
-function handleSelect() {
-  if (tipInput.value.trim() !== '') {
-    tipInput.innerHTML += tipInput.value;
-  } else {
-    tipInput.innerHTML = "Boş değer girilmez";
-  }
-}
-
-function handlePeople() {
-  if (peopleInput.value.trim() !== '') {
-    peopleInput.innerHTML += peopleInput.value;
-  } else {
-    peopleInput.innerHTML = "Boş değer girilmez";
-
-  }
-}
-
-let total = 0;
-let amountTip = 0;
-let tipPercent = 0;
-
+// Hesapla fonksiyonu
 function handleCalc() {
-  if (Number(peopleInput.value) === 0) {
-    warnTxt.innerHTML = "Can't be zero!";
+  // Eğer boşsa veya 0 ise kullanıcıya uyarı ver
+  // Tüm inputların üzerinde dönüyoruz
+  inputs.forEach(input => {
+    if (input.value.trim() === "" || input.value.trim() === "0") {
+      validateInput({ target: input }); // Hata mesajı tekrar tetiklenir
+      // target hangi input alanına ait olduğunu gösterir, input ise tek tek dönen inputtur
+      // event nesnesi oluşturup event nesnesinin target özelliğine input elemanları atılır
+    }
+  });
+
+  if (billInput.value === "" || tipInput.value === "" || peopleInput.value === "" || billInput.value === "0" || tipInput.value === "0" || peopleInput.value === "0") {
+    return; // Hesaplama yapılmaz
   }
 
-  if (billInput.value === "" || tipInput.value === "" || peopleInput.value === "") {
-    alert('Boş değer girerek hesaplama yapılmaz');
+  const billValue = Number(billInput.value);
+  const tipValue = Number(tipInput.value);
+  const peopleValue = Number(peopleInput.value);
 
-  } else {
-    tipPercent = Number((Number(billInput.value) * Number(tipInput.value)) / 100);
-    amountTip = tipPercent / Number(peopleInput.value);
-    total = Number((Number(billInput.value) + Number(tipPercent)) / Number(peopleInput.value));
-    totalPriceTxt.innerHTML = total.toFixed(2);
-    amountPriceTxt.innerHTML = amountTip.toFixed(2);
-  }
+  // Hesaplama
+  const tipPercent = (billValue * tipValue) / 100;
+  const amountTip = tipPercent / peopleValue;
+  const total = (billValue + tipPercent) / peopleValue;
+
+  // Sonuçları gösterme
+  totalPriceTxt.innerHTML = total.toFixed(2);
+  amountPriceTxt.innerHTML = amountTip.toFixed(2);
 }
 
+// Reset fonksiyonu
 function handleReset() {
   billInput.value = "";
   tipInput.value = "";
   peopleInput.value = "";
   totalPriceTxt.innerHTML = "$0.00";
   amountPriceTxt.innerHTML = "$0.00";
-  warnTxt.innerHTML = "";
+
+  // Validasyonları sıfırlamak için
+  inputs.forEach(input => {
+    input.classList.remove("user-invalid", "user-valid");
+    input.nextElementSibling.style.display = "none"; // Error mesajını gizlemek
+  });
 }

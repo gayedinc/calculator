@@ -89,11 +89,18 @@ h6 {
   border-top-left-radius: 25px;
 }
 
-.bill{
+form {
+  display: grid;
+  gap: 32px;
+}
+
+.bill,
+.select-tip,
+.number-people {
   padding-inline: 32px;
 }
 
-.bill h3, .select-tip h3, .number-people h3{
+.bill h3, .select-tip h3, .number-people h3 {
   font-size: 16px;
   font-weight: 700;
   line-height: 23.7px;
@@ -101,14 +108,36 @@ h6 {
   margin-bottom: 6px;
 }
 
-.bill input, .select-tip input, .number-people input {
+.bill input,
+.select-tip input,
+.number-people input {
   width: 100%;
   background-color: #F3F9FA;
-  border-style: none;
+  border: none;
   padding-block: 6px;
   padding-left: 19.26px;
   padding-right: 17.48px;
+  box-sizing: border-box;
+  height: 36px;
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
 }
+
+.bill input:focus,
+.select-tip input:focus,
+.number-people input:focus {
+  border: 2px solid #26C2AE;
+  outline: none;
+}
+
+/* Placeholder'ın da sabit durması için */
+.bill input::placeholder,
+.select-tip input::placeholder,
+.number-people input::placeholder {
+  color: #7F9D9F;
+}
+
 
 .select-tip, .number-people {
   padding-inline: 32px;
@@ -118,14 +147,16 @@ h6 {
   background-image: url("../img/dolar-icon.svg");
   background-repeat: no-repeat;
   text-align: end;
-  background-position: left center;
+  background-position: 19.26px center;
+  background-size: 10px 16px;
 }
 
-.number-people input{
+.number-people input {
   background-image: url("../img/avatar-icon.svg");
   background-repeat: no-repeat;
   text-align: end;
-  background-position: left center;
+  background-position: 19.26px center;
+  background-size: 13px 16px;
 }
 
 .result-card {
@@ -138,7 +169,8 @@ h6 {
   gap: 32px;
 }
 
-.tip-amount, .total {
+.tip-amount,
+.total {
   display: flex;
   justify-content: space-between;
 }
@@ -147,21 +179,24 @@ h6 {
   margin-bottom: 20px;
 }
 
-.result-card h3, .total h3 {
+.result-card h3,
+.total h3 {
   font-size: 16px;
   font-weight: 700;
   line-height: 23.7px;
   color: #FFFFFF;
 }
 
-.result-card span, .total span {
+.result-card span,
+.total span {
   font-size: 13px;
   font-weight: 700;
   line-height: 19.25px;
   color: #7F9D9F;
 }
 
-.amount-price span, .total-price span{
+.amount-price span,
+.total-price span {
   font-size: 32px;
   font-weight: 700;
   line-height: 47.39px;
@@ -169,30 +204,22 @@ h6 {
   color: #26C2AE;
 }
 
-.calc-button, .reset-button {
+.calc-button,
+.reset-button {
   background-color: #26C2AE;
   border-style: none;
   border-radius: 5px;
   padding: 9px 32px;
-}
-
-.calc-button:hover, .reset-button:hover {
-  cursor: pointer;
-}
-
-.calc-button:active, .reset-button:active {
-  background-color: #9FE8DF;
-}
-
-.calc-button span, .reset-button span {
   color: #00474B;
   font-size: 20px;
   font-weight: 700;
   line-height: 29.62px;
 }
 
-.warn-text {
-  color: #E17457;
+.calc-button:hover,
+.reset-button:hover {
+  cursor: pointer;
+  background-color: #9FE8DF;
 }
 
 .number-people-title {
@@ -200,13 +227,46 @@ h6 {
   justify-content: space-between;
 }
 
+/* Number input'larındaki spinner'ı gizler */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input + span {
+  display: none;
+}
+
+/* Geçersiz giriş için */
+input.user-invalid {
+  border: 2px solid #E17052;
+}
+
+/* Geçerli giriş için */
+input.user-valid {
+  border: 2px solid #26C2AE;
+}
+
+/* Hata mesajını göster */
+input.user-invalid + .error-msg {
+  display: inline;
+  color: #E17052;
+}
+
+/* Geçerli giriş olduğunda hata mesajını gizle */
+input.user-valid + .error-msg {
+  display: none;
+}
+
+
 @media (width > 768px) {
 
-  .head-line img{
+  .head-line img {
     padding-top: 50px;
     padding-bottom: 40px;
   }
-  
+
   .context {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -214,7 +274,7 @@ h6 {
     box-shadow: none;
     border-radius: 25px;
   }
-  
+
   .card {
     display: grid;
     grid-template-columns: 1fr;
@@ -225,46 +285,26 @@ h6 {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
   }
-  
-  .bill{
+
+  .bill {
     padding-inline: 32px;
   }
-  
-  .bill h3, .select-tip h3, .number-people h3{
+
+  .bill h3,
+  .select-tip h3,
+  .number-people h3 {
     font-size: 16px;
     font-weight: 700;
     line-height: 23.7px;
     color: #5E7A7D;
     margin-bottom: 6px;
   }
-  
-  .bill input, .select-tip input, .number-people input {
-    width: 100%;
-    background-color: #F3F9FA;
-    border-style: none;
-    padding-block: 6px;
-    padding-left: 19.26px;
-    padding-right: 17.48px;
-  }
-  
-  .select-tip, .number-people {
+
+  .select-tip,
+  .number-people {
     padding-inline: 32px;
   }
-  
-  .bill input {
-    background-image: url("../img/dolar-icon.svg");
-    background-repeat: no-repeat;
-    text-align: end;
-    background-position: left center;
-  }
-  
-  .number-people input{
-    background-image: url("../img/avatar-icon.svg");
-    background-repeat: no-repeat;
-    text-align: end;
-    background-position: left center;
-  }
-  
+
   .result-card {
     background-color: #00474B;
     border-radius: 15px;
@@ -274,56 +314,46 @@ h6 {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  
-  .tip-amount, .total {
+
+  .tip-amount,
+  .total {
     display: flex;
     justify-content: space-between;
   }
-  
+
   .tip-amount {
     margin-bottom: 20px;
   }
-  
-  .result-card h3, .total h3 {
+
+  .result-card h3,
+  .total h3 {
     font-size: 16px;
     font-weight: 700;
     line-height: 23.7px;
     color: #FFFFFF;
   }
-  
-  .result-card span, .total span {
+
+  .result-card span,
+  .total span {
     font-size: 13px;
     font-weight: 700;
     line-height: 19.25px;
     color: #7F9D9F;
   }
-  
-  .amount-price span, .total-price span{
+
+  .amount-price span,
+  .total-price span {
     font-size: 32px;
     font-weight: 700;
     line-height: 47.39px;
     letter-spacing: -0.6666666865348816px;
     color: #26C2AE;
   }
-  
-  .calc-button, .reset-button {
-    background-color: #26C2AE;
-    border-style: none;
-    border-radius: 5px;
-    padding: 9px 32px;
-  }
-  
-  .calc-button span, .reset-button span {
-    color: #00474B;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 29.62px;
-  }
-  
+
   .warn-text {
     color: #E17457;
   }
-  
+
   .number-people-title {
     display: flex;
     justify-content: space-between;
